@@ -7,5 +7,7 @@ public class Main {
 
         Space space = new Space();
         space.open();
+
+
     }
 }
