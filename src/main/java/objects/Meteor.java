@@ -1,9 +1,9 @@
 package objects;
 
-import math.Position;
+import math.Point;
 
 public class Meteor extends SpaceObject {
-    public Meteor(Position position, int radius) {
+    public Meteor(Point position, int radius) {
         super(position, radius);
     }
 }

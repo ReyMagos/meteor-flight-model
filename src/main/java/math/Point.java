@@ -1,91 +1,73 @@
 package math;
 
-import static java.lang.Math.abs;
 import static java.lang.Math.hypot;
 
 public class Point {
-    private double eps = 1e-7;
+    public double x, y;
 
-    private boolean equal(double x, double y){
-        return abs(x - y) < eps;
-    }
-
-    private double x, y;
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public Point(){
-        this.x = this.y = 0;
+    public Point() {
+        x = y = 0;
     }
 
-    public double getX() {
-        return x;
+    public boolean equal(Point p) {
+        return equal(p.x, x) && equal(p.y, y);
     }
 
-    public double getY() {
-        return y;
+    public boolean notEqual(Point p) {
+        return !equal(p);
     }
 
-    public void setX(double x) {
-        this.x = x;
+    public Point subtract(Point p) {
+        return new Point(x - p.x, y - p.y);
     }
 
-    public void setY(double y) {
-        this.y = y;
+    public Point add(Point p) {
+        return new Point(x + p.x, y + p.y);
     }
 
-    public boolean eq(Point rhs){
-        return equal(rhs.getX(), this.x) && equal(rhs.getY(), this.y);
+    public double scalar(Point p) {
+        return x * p.x + y * p.y;
     }
 
-    public boolean not_eq(Point rhs){
-        return !this.eq(rhs);
+    public double pseudoScalar(Point p) {
+        return x * p.y - y * p.x;
+    }
+
+    public Point multi(double k) {
+        return new Point(x * k, y * k);
+    }
+
+    public Point div(double k) {
+        return multi(1 / k);
+    }
+
+    public Point normal() {
+        return div(len());
+    }
+
+    public Point rotate() {
+        return new Point(-y, x);
+    }
+
+    public double len() {
+        return hypot(x, y);
+    }
+
+    public double len2() {
+        return x * x + y * y;
     }
 
     @Override
     public String toString() {
-        return "" + x + " " + ' ' + y;
+        return "(" + x + "; " + y + ")";
     }
 
-    Point deq(Point rhs){
-        return new Point(this.x - rhs.getX(), this.y - rhs.getY());
-    }
-
-    Point add(Point rhs){
-        return new Point(this.x + rhs.getX(), this.y + rhs.getY());
-    }
-
-    double scalar(Point rhs){
-        return this.x * rhs.getX() + this.y * rhs.getY();
-    }
-
-    double pseudo_scalar(Point rhs){
-        return this.x * rhs.getY() - this.y * rhs.getX();
-    }
-
-    double getLen(){
-        return hypot(this.x, this.y);
-    }
-
-    Point mul(double k){
-        return new Point(this.x * k, this.y * k);
-    }
-
-    Point div(double k){
-        return mul(1 / k);
-    }
-
-    Point normal(){
-        return this.div(this.getLen());
-    }
-
-    Point rotate(){
-        return new Point(-this.y, this.x);
-    }
-
-    double getLen2(){
-        return this.x * this.x + this.y * this.y;
+    private boolean equal(double x, double y) {
+        return Double.compare(x, y) == 0;
     }
 }
